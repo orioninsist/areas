@@ -28,6 +28,16 @@ folder_summary() {
   printf '  - Dosya: %s, klasor: %s, markdown: %s\n' "$file_count" "$folder_count" "$md_count"
 }
 
+markdown_anchor() {
+  local text="$1"
+
+  text="${text,,}"
+  text="${text// /-}"
+  text="$(printf '%s' "$text" | tr -cd '[:alnum:]_.-')"
+
+  printf '%s' "$text"
+}
+
 generate_index() {
   {
     print_line "# Areas Ana Klasor Indeksi"
@@ -37,10 +47,25 @@ generate_index() {
     print_line "- Dizin: \`$ROOT_DIR\`"
     print_line "- Olusturma zamani: \`$(date '+%Y-%m-%d %H:%M:%S %Z')\`"
     print_line ""
-    print_line "## Ana Klasorler"
-    print_line ""
 
     mapfile -t folders < <(find "$ROOT_DIR" -maxdepth 1 -type d ! -path "$ROOT_DIR" ! -name '.git' | sort)
+
+    print_line "## Icindekiler"
+    print_line ""
+    print_line "- [Ana Klasorler](#ana-klasorler)"
+
+    if ((${#folders[@]} > 0)); then
+      local toc_folder toc_name toc_anchor
+      for toc_folder in "${folders[@]}"; do
+        toc_name="$(basename "$toc_folder")"
+        toc_anchor="$(markdown_anchor "$toc_name")"
+        print_line "  - [$toc_name](#$toc_anchor)"
+      done
+    fi
+
+    print_line ""
+    print_line "## Ana Klasorler"
+    print_line ""
 
     if ((${#folders[@]} == 0)); then
       print_line "Bu dizinde henuz ana klasor yok."

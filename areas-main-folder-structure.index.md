@@ -3,7 +3,26 @@
 Bu dosya, bulundugu dizindeki ana klasorleri ve temel iceriklerini listeler.
 
 - Dizin: `/mnt/local/areas`
-- Olusturma zamani: `2026-05-23 13:04:40 +03`
+- Olusturma zamani: `2026-05-23 13:08:04 +03`
+
+## Icindekiler
+
+- [Ana Klasorler](#ana-klasorler)
+  - [ai-music](#ai-music)
+  - [artqr-fusion](#artqr-fusion)
+  - [deutschHumorClips](#deutschhumorclips)
+  - [donem-projesi](#donem-projesi)
+  - [gnome](#gnome)
+  - [KrizimGeldi](#krizimgeldi)
+  - [mira](#mira)
+  - [OliviasCompass](#oliviascompass)
+  - [orioninsist-cli](#orioninsist-cli)
+  - [orioninsistWolf](#orioninsistwolf)
+  - [printfy](#printfy)
+  - [qrcode](#qrcode)
+  - [SelinsCompass](#selinscompass)
+  - [SophiasKompass](#sophiaskompass)
+  - [todolist](#todolist)
 
 ## Ana Klasorler
 
