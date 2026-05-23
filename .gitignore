@@ -1,0 +1,17 @@
+# Bu dizindeki uretilebilir ve gecici dosyalar
+.DS_Store
+Thumbs.db
+*.tmp
+*.temp
+*.log
+
+# Editor / sistem dosyalari
+.idea/
+.vscode/
+
+
+*
+!.gitignore
+!areas-index.sh
+!areas-index.md
+!README.md
