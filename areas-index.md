@@ -7,31 +7,23 @@ Bu dosya, bulundugu dizindeki ana klasor adlarini listeler.
 ## Icindekiler
 
 - [Ana Klasorler](#ana-klasorler)
-  - [KrizimGeldi](#krizimgeldi)
-  - [OliviasCompass](#oliviascompass)
-  - [SelinsCompass](#selinscompass)
-  - [SophiasKompass](#sophiaskompass)
   - [ai-music](#ai-music)
   - [artqr-fusion](#artqr-fusion)
   - [deutschHumorClips](#deutschhumorclips)
   - [donem-projesi](#donem-projesi)
   - [gnome](#gnome)
+  - [KrizimGeldi](#krizimgeldi)
   - [mira](#mira)
+  - [OliviasCompass](#oliviascompass)
   - [orioninsist-cli](#orioninsist-cli)
   - [orioninsistWolf](#orioninsistwolf)
   - [printfy](#printfy)
   - [qrcode](#qrcode)
+  - [SelinsCompass](#selinscompass)
+  - [SophiasKompass](#sophiaskompass)
   - [todolist](#todolist)
 
 ## Ana Klasorler
-
-### KrizimGeldi
-
-### OliviasCompass
-
-### SelinsCompass
-
-### SophiasKompass
 
 ### ai-music
 
@@ -43,7 +35,11 @@ Bu dosya, bulundugu dizindeki ana klasor adlarini listeler.
 
 ### gnome
 
+### KrizimGeldi
+
 ### mira
+
+### OliviasCompass
 
 ### orioninsist-cli
 
@@ -52,6 +48,10 @@ Bu dosya, bulundugu dizindeki ana klasor adlarini listeler.
 ### printfy
 
 ### qrcode
+
+### SelinsCompass
+
+### SophiasKompass
 
 ### todolist
 
