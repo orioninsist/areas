@@ -1,57 +1,51 @@
-# Areas Ana Klasor Indeksi
+# Areas Index
 
-Bu dosya, bulundugu dizindeki ana klasor adlarini listeler.
+Path: `/mnt/local/areas`
 
-- Dizin: `/mnt/local/areas`
-
-## Icindekiler
-
-- [Ana Klasorler](#ana-klasorler)
-  - [ai-music](#ai-music)
-  - [artqr-fusion](#artqr-fusion)
-  - [deutschHumorClips](#deutschhumorclips)
-  - [donem-projesi](#donem-projesi)
-  - [gnome](#gnome)
-  - [KrizimGeldi](#krizimgeldi)
-  - [mira](#mira)
-  - [OliviasCompass](#oliviascompass)
-  - [orioninsist-cli](#orioninsist-cli)
-  - [orioninsistWolf](#orioninsistwolf)
-  - [printfy](#printfy)
-  - [qrcode](#qrcode)
-  - [SelinsCompass](#selinscompass)
-  - [SophiasKompass](#sophiaskompass)
-  - [todolist](#todolist)
-
-## Ana Klasorler
-
-### ai-music
-
-### artqr-fusion
-
-### deutschHumorClips
-
-### donem-projesi
-
-### gnome
+## Folders
 
 ### KrizimGeldi
-
-### mira
+Last updated: 2026-05-14 22:14:44
 
 ### OliviasCompass
-
-### orioninsist-cli
-
-### orioninsistWolf
-
-### printfy
-
-### qrcode
+Last updated: 2026-05-14 00:47:49
 
 ### SelinsCompass
+Last updated: 2026-05-18 01:36:23
 
 ### SophiasKompass
+Last updated: 2026-05-14 00:47:33
+
+### ai-music
+Last updated: 2026-05-04 22:06:52
+
+### artqr-fusion
+Last updated: 2026-05-14 19:17:05
+
+### deutschHumorClips
+Last updated: 2026-05-11 23:05:40
+
+### donem-projesi
+Last updated: 2026-04-26 13:36:21
+
+### gnome
+Last updated: 2026-05-22 23:19:14
+
+### mira
+Last updated: 2026-05-17 19:52:36
+
+### orioninsist-cli
+Last updated: 2026-05-16 19:29:25
+
+### orioninsistWolf
+Last updated: 2026-05-21 15:12:07
+
+### printfy
+Last updated: 2026-05-20 02:29:56
+
+### qrcode
+Last updated: 2026-05-10 10:19:09
 
 ### todolist
+Last updated: 2026-05-23 13:03:26
 
