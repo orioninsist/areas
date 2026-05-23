@@ -1,137 +1,133 @@
 # Areas Index
 
-`areas-index.sh`, bulundugu dizindeki ana klasorleri tarayan ve bunlari okunabilir bir Markdown indeksine yazan tek dosyalik bir Bash aracidir.
+`areas-index.sh`, bulundugu dizindeki ana klasorleri sade bir Markdown indeksine yazan kucuk bir Bash aracidir.
 
-Bu repo, `/mnt/local/areas` gibi cok sayida proje, medya dosyasi, not ve deneme klasoru bulunan bir ana dizini daha kolay anlamak icin kullanilir. Script klasorleri silmez, tasimaz veya yeniden adlandirmaz; sadece mevcut durumu listeler, `areas-index.md` dosyasini gunceller ve istege bagli olarak Git/.gitignore hazirligi yapar.
+Indeksin amaci ayrinti kalabaligi yapmak degil, ana klasorleri tek ekranda gostermek ve her klasorde varsa `README.md` dosyasina hizli link vermektir. Alt klasorler, dosya listeleri, Git hazirligi ve klasor agaci ciktisi bu akis icinde yer almaz.
 
 ## Turkce
 
-### Amac
+### Ne Yapar?
 
-Bu proje, ana calisma dizinindeki klasorleri tek bir Markdown dosyasinda toplamak icin hazirlandi. Boylece hangi klasorde ne oldugunu dosya gezmeden gorebilir, eski projeleri, video/icerik klasorlerini, notlari ve uygulama denemelerini hizlica tarayabilirsin.
+Script calistigi kendi dizinini ana dizin kabul eder ve sadece bu dizindeki ana klasorleri listeler.
 
-Olusturulan indeks dosyasi:
+Her ana klasor icin:
 
-- ana klasorleri listeler;
-- her klasor icin dosya, alt klasor ve Markdown sayisini gosterir;
-- ilk seviye icerigi dosya/klasor olarak ayirir;
-- ciktiyi `areas-index.md` dosyasina yazar.
+- klasor adini baslik olarak yazar;
+- `README.md` varsa ona link verir;
+- `readme.md` varsa ona link verir;
+- ikisi de yoksa `README: yok` yazar.
+
+### Ne Yapmaz?
+
+- Alt klasorleri listelemez.
+- Klasor icindeki dosyalari listelemez.
+- Dosya sayisi veya Markdown sayisi hesaplamaz.
+- Git init calistirmaz.
+- `.gitignore` olusturmaz veya guncellemez.
+- Klasor agaci gostermez.
+- Mevcut klasorleri silmez, tasimaz veya yeniden adlandirmaz.
 
 ### Dosyalar
 
-| Dosya | Gorev |
+| Dosya | Aciklama |
 | --- | --- |
-| `areas-index.sh` | Ana Bash script'i. Menuyu calistirir, indeks uretir, Git hazirlar ve klasor agacini gosterir. |
-| `areas-index.md` | Script tarafindan uretilen guncel ana klasor indeksi. |
-| `README.md` | Projenin amacini ve kullanimini anlatan dokuman. |
-| `.gitignore` | Gecici/editor dosyalarini Git disinda tutar. |
+| `areas-index.sh` | Ana script. Menuden indeks gosterme ve yeniden olusturma islemlerini yapar. |
+| `areas-index.md` | Script tarafindan uretilen ana klasor indeksi. |
+| `README.md` | Bu proje dokumani. |
 
 ### Kullanim
-
-Script'i bulundugu dizinden calistir:
 
 ```bash
 ./areas-index.sh
 ```
 
-Calistirdiginda interaktif menu acilir:
+Menu:
 
 | Secim | Islem |
 | --- | --- |
-| `1` | `areas-index.md` dosyasinin son halini ekrana basar. Dosya yoksa once olusturur. |
-| `2` | Ana klasor indeksini yeniden olusturur. |
-| `3` | Bu dizinde Git deposu yoksa `git init` calistirir ve `.gitignore` dosyasini hazirlar. |
-| `4` | Klasor agacini gosterir. `tree` varsa onu, yoksa `find` kullanir. |
-| `5` | Indeks olusturma, Git hazirlama, README kontrolu ve indeks gosterme adimlarini birlikte calistirir. |
-| `6` | Menuden cikar. |
+| `1` | `areas-index.md` dosyasinin son halini gosterir. Dosya yoksa once olusturur. |
+| `2` | `areas-index.md` dosyasini yeniden olusturur. |
+| `3` | Cikis yapar. |
 
-### Calisma Mantigi
+### Cikti Formati
 
-Script kendi konumunu proje koku kabul eder:
+Uretilen `areas-index.md` dosyasi su mantikla olusur:
 
-```bash
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+```md
+## Ana Klasorler
+
+### proje-adi
+
+- README: [./proje-adi/README.md](./proje-adi/README.md)
+
+### baska-proje
+
+- README: yok
 ```
 
-Bu sayede hangi dizinden cagirirsan cagir, indeks her zaman script'in bulundugu klasor icin uretilir. Cikti dosyasi sabittir:
-
-```bash
-areas-index.md
-```
-
-Indeks olusturulurken sadece ana seviyedeki klasorler taranir. `.git` klasoru ana listeye dahil edilmez. Her klasor icin yalnizca ilk seviye icerik gosterilir; bu sayede cikti kisa, okunabilir ve hizli kalir.
-
-### Notlar
-
-- Script mevcut klasorleri silmez veya tasimaz.
-- `areas-index.md` uretilebilir bir dosyadir; klasorler degistikce yeniden olusturulabilir.
-- Klasor adlari ve icerikler mevcut disk durumundan okunur.
-- Git hazirligi sadece bu ana dizin icindir; alt klasorlerdeki ayri Git repolarina mudahale etmez.
+Bu yapi sayesinde indeks dosyasi temiz kalir ve her projenin kendi aciklamasi varsa dogrudan o projenin README dosyasina gidilir.
 
 ---
 
 ## English
 
-### Purpose
+### What It Does
 
-This project is a small Bash-based indexer for a busy workspace folder. It scans the top-level directories next to `areas-index.sh` and writes a readable Markdown overview to `areas-index.md`.
+`areas-index.sh` is a small Bash tool that creates a simple Markdown index for the top-level folders next to the script.
 
-It is useful when one main folder contains many projects, content folders, notes, media files, experiments, and archived work. Instead of opening every folder manually, you can regenerate the index and quickly see what exists at the first level.
+For each top-level folder, it:
 
-The generated index:
+- writes the folder name as a heading;
+- links to `README.md` when it exists;
+- links to `readme.md` when that exists instead;
+- writes `README: yok` when no README file is found.
 
-- lists top-level folders;
-- shows file, folder, and Markdown counts for each folder;
-- lists first-level entries as files or folders;
-- writes the result to `areas-index.md`.
+### What It Does Not Do
+
+- It does not list nested folders.
+- It does not list files inside each folder.
+- It does not count files or Markdown documents.
+- It does not run Git setup.
+- It does not create or update `.gitignore`.
+- It does not print a folder tree.
+- It does not delete, move, or rename existing folders.
 
 ### Files
 
-| File | Role |
+| File | Description |
 | --- | --- |
-| `areas-index.sh` | Main Bash script. Runs the menu, generates the index, prepares Git, and shows the folder tree. |
-| `areas-index.md` | Generated Markdown index of the current top-level folders. |
-| `README.md` | Project documentation and usage guide. |
-| `.gitignore` | Keeps temporary/editor files out of Git. |
+| `areas-index.sh` | Main script. Shows the menu, prints the index, and regenerates the index. |
+| `areas-index.md` | Generated Markdown index of top-level folders. |
+| `README.md` | This project documentation. |
 
 ### Usage
-
-Run the script from this folder:
 
 ```bash
 ./areas-index.sh
 ```
 
-The script opens an interactive menu:
+Menu:
 
 | Option | Action |
 | --- | --- |
-| `1` | Prints the latest `areas-index.md` content. If the file does not exist, it creates it first. |
-| `2` | Regenerates the folder index. |
-| `3` | Initializes Git if needed and writes the `.gitignore` file. |
-| `4` | Shows the folder tree. Uses `tree` when available, otherwise falls back to `find`. |
-| `5` | Runs the full workflow: generate index, prepare Git, check README, then show the index. |
-| `6` | Exits the menu. |
+| `1` | Shows the latest `areas-index.md`. If it does not exist, it creates it first. |
+| `2` | Regenerates `areas-index.md`. |
+| `3` | Exits. |
 
-### How It Works
+### Output Format
 
-The script treats its own directory as the project root:
+The generated `areas-index.md` follows this shape:
 
-```bash
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+```md
+## Ana Klasorler
+
+### project-name
+
+- README: [./project-name/README.md](./project-name/README.md)
+
+### another-project
+
+- README: yok
 ```
 
-Because of that, it always indexes the folder where the script lives, even if you launch it from another working directory. The output file is always:
-
-```bash
-areas-index.md
-```
-
-The scan is intentionally shallow. It reads only top-level folders and first-level entries inside them. This keeps the Markdown output fast, compact, and easy to review.
-
-### Notes
-
-- The script does not delete, move, or rename existing folders.
-- `areas-index.md` is generated output and can be refreshed whenever the workspace changes.
-- Folder names and contents are read from the current filesystem state.
-- Git setup applies only to this main folder and does not manage nested Git repositories.
+This keeps the main index compact while letting each project explain itself through its own README file.

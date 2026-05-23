@@ -3,8 +3,6 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 INDEX_FILE="$ROOT_DIR/areas-index.md"
-README_FILE="$ROOT_DIR/README.md"
-IGNORE_FILE="$ROOT_DIR/.gitignore"
 
 cd "$ROOT_DIR"
 
@@ -15,17 +13,6 @@ print_line() {
 pause() {
   printf '\nDevam etmek icin Enter... '
   read -r _
-}
-
-folder_summary() {
-  local dir="$1"
-  local file_count folder_count md_count
-
-  file_count="$(find "$dir" -maxdepth 1 -type f | wc -l | tr -d ' ')"
-  folder_count="$(find "$dir" -maxdepth 1 -type d ! -path "$dir" | wc -l | tr -d ' ')"
-  md_count="$(find "$dir" -maxdepth 1 -type f -name '*.md' | wc -l | tr -d ' ')"
-
-  printf '  - Dosya: %s, klasor: %s, markdown: %s\n' "$file_count" "$folder_count" "$md_count"
 }
 
 markdown_anchor() {
@@ -42,7 +29,7 @@ generate_index() {
   {
     print_line "# Areas Ana Klasor Indeksi"
     print_line ""
-    print_line "Bu dosya, bulundugu dizindeki ana klasorleri ve temel iceriklerini listeler."
+    print_line "Bu dosya, bulundugu dizindeki ana klasorleri listeler. Klasorde README.md varsa ilgili linki gosterir."
     print_line ""
     print_line "- Dizin: \`$ROOT_DIR\`"
     print_line "- Olusturma zamani: \`$(date '+%Y-%m-%d %H:%M:%S %Z')\`"
@@ -75,24 +62,12 @@ generate_index() {
         name="$(basename "$folder")"
         print_line "### $name"
         print_line ""
-        print_line "- Yol: \`./$name\`"
-        folder_summary "$folder"
-        print_line "- Ilk seviye icerik:"
-
-        mapfile -t entries < <(find "$folder" -maxdepth 1 ! -path "$folder" | sort)
-        if ((${#entries[@]} == 0)); then
-          print_line "  - Bos klasor"
+        if [[ -f "$folder/README.md" ]]; then
+          print_line "- README: [./$name/README.md](./$name/README.md)"
+        elif [[ -f "$folder/readme.md" ]]; then
+          print_line "- README: [./$name/readme.md](./$name/readme.md)"
         else
-          local entry base kind
-          for entry in "${entries[@]}"; do
-            base="$(basename "$entry")"
-            if [[ -d "$entry" ]]; then
-              kind="klasor"
-            else
-              kind="dosya"
-            fi
-            print_line "  - \`$base\` ($kind)"
-          done
+          print_line "- README: yok"
         fi
         print_line ""
       done
@@ -113,59 +88,6 @@ show_index() {
   print_line "----- indeks sonu -----"
 }
 
-setup_git() {
-  if [[ ! -d "$ROOT_DIR/.git" ]]; then
-    git init
-  fi
-
-  cat > "$IGNORE_FILE" <<'EOF'
-# Bu dizindeki uretilebilir ve gecici dosyalar
-.DS_Store
-Thumbs.db
-*.tmp
-*.temp
-*.log
-
-# Editor / sistem dosyalari
-.idea/
-.vscode/
-EOF
-
-  print_line "Git hazirlandi."
-  print_line ".gitignore guncellendi: $IGNORE_FILE"
-  git -c safe.directory="$ROOT_DIR" status --short
-}
-
-show_tree() {
-  print_line ""
-  print_line "Bulundugu dizin: $ROOT_DIR"
-  print_line ""
-
-  if command -v tree >/dev/null 2>&1; then
-    tree -a -L 2 -I '.git'
-  else
-    find "$ROOT_DIR" -maxdepth 2 ! -path "$ROOT_DIR/.git*" | sort | sed "s#^$ROOT_DIR#.#"
-  fi
-}
-
-ensure_readme() {
-  if [[ -f "$ROOT_DIR/areas-main-folder-structure.md" && ! -f "$README_FILE" ]]; then
-    mv "$ROOT_DIR/areas-main-folder-structure.md" "$README_FILE"
-    print_line "areas-main-folder-structure.md artik README.md oldu."
-  elif [[ -f "$README_FILE" ]]; then
-    print_line "README.md zaten var."
-  else
-    print_line "README.md icin kaynak dosya bulunamadi."
-  fi
-}
-
-run_all() {
-  generate_index
-  setup_git
-  ensure_readme
-  show_index
-}
-
 menu() {
   while true; do
     clear || true
@@ -174,10 +96,7 @@ menu() {
     print_line ""
     print_line "1) Indeks son halini goster"
     print_line "2) Indeksi yeniden olustur"
-    print_line "3) Git ve .gitignore hazirla"
-    print_line "4) Klasor agacini goster"
-    print_line "5) Tum islemleri calistir"
-    print_line "6) Cikis"
+    print_line "3) Cikis"
     print_line ""
     printf 'Secim: '
     read -r choice
@@ -185,10 +104,7 @@ menu() {
     case "$choice" in
       1) show_index; pause ;;
       2) generate_index; pause ;;
-      3) setup_git; pause ;;
-      4) show_tree; pause ;;
-      5) run_all; pause ;;
-      6) print_line "Cikis."; exit 0 ;;
+      3) print_line "Cikis."; exit 0 ;;
       *) print_line "Gecersiz secim: $choice"; pause ;;
     esac
   done
