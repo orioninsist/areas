@@ -12,18 +12,13 @@ print_line() {
 }
 
 pause() {
-  printf '\nDevam etmek icin Enter... '
+  printf '\nPress Enter to continue... '
   read -r _
 }
 
-markdown_anchor() {
-  local text="$1"
-
-  text="${text,,}"
-  text="${text// /-}"
-  text="$(printf '%s' "$text" | tr -cd '[:alnum:]_.-')"
-
-  printf '%s' "$text"
+folder_modified_at() {
+  local folder="$1"
+  stat -c '%y' "$folder" | cut -d'.' -f1
 }
 
 generate_index() {
@@ -31,53 +26,38 @@ generate_index() {
   tmp_file="$(mktemp)"
 
   {
-    print_line "# Areas Ana Klasor Indeksi"
+    print_line "# Areas Index"
     print_line ""
-    print_line "Bu dosya, bulundugu dizindeki ana klasor adlarini listeler."
-    print_line ""
-    print_line "- Dizin: \`$ROOT_DIR\`"
+    print_line "Path: \`$ROOT_DIR\`"
     print_line ""
 
     mapfile -t folders < <(find "$ROOT_DIR" -maxdepth 1 -type d ! -path "$ROOT_DIR" ! -name '.git' | sort)
 
-    print_line "## Icindekiler"
-    print_line ""
-    print_line "- [Ana Klasorler](#ana-klasorler)"
-
-    if ((${#folders[@]} > 0)); then
-      local toc_folder toc_name toc_anchor
-      for toc_folder in "${folders[@]}"; do
-        toc_name="$(basename "$toc_folder")"
-        toc_anchor="$(markdown_anchor "$toc_name")"
-        print_line "  - [$toc_name](#$toc_anchor)"
-      done
-    fi
-
-    print_line ""
-    print_line "## Ana Klasorler"
-    print_line ""
-
     if ((${#folders[@]} == 0)); then
-      print_line "Bu dizinde henuz ana klasor yok."
+      print_line "No folders."
     else
-      local folder name
+      local folder name modified_at number
+      number=1
       for folder in "${folders[@]}"; do
         name="$(basename "$folder")"
-        print_line "### $name"
+        modified_at="$(folder_modified_at "$folder")"
+        print_line "$number. $name"
+        print_line "   Last updated: $modified_at"
         print_line ""
+        ((number++))
       done
     fi
   } > "$tmp_file"
 
   if [[ -f "$INDEX_FILE" ]] && cmp -s "$tmp_file" "$INDEX_FILE"; then
     rm -f "$tmp_file"
-    print_line "Indeks zaten guncel: $INDEX_FILE"
+    print_line "Index is current: $INDEX_FILE"
     return 1
   fi
 
   mv "$tmp_file" "$INDEX_FILE"
 
-  print_line "Indeks guncellendi: $INDEX_FILE"
+  print_line "Index updated: $INDEX_FILE"
   return 0
 }
 
@@ -85,19 +65,19 @@ commit_index_if_changed() {
   git -c safe.directory="$ROOT_DIR" add "$INDEX_REL"
 
   if git -c safe.directory="$ROOT_DIR" diff --cached --quiet -- "$INDEX_REL"; then
-    print_line "Commit olusturulmadi: indeks degismedi."
+    print_line "No commit: index did not change."
     return 0
   fi
 
   git -c safe.directory="$ROOT_DIR" commit -m "Update areas folder index" -- "$INDEX_REL"
-  print_line "Commit olusturuldu: Update areas folder index"
+  print_line "Commit created: Update areas folder index"
 }
 
 update_index() {
   if generate_index; then
     commit_index_if_changed
   else
-    print_line "Commit olusturulmadi: degisiklik yok."
+    print_line "No commit: no changes."
   fi
 }
 
@@ -109,27 +89,27 @@ show_index() {
   print_line ""
   print_line "----- $INDEX_FILE -----"
   cat "$INDEX_FILE"
-  print_line "----- indeks sonu -----"
+  print_line "----- end -----"
 }
 
 menu() {
   while true; do
     clear || true
-    print_line "Areas main folder structure"
-    print_line "Dizin: $ROOT_DIR"
+    print_line "Areas Index"
+    print_line "Path: $ROOT_DIR"
     print_line ""
-    print_line "1) Indeks son halini goster"
-    print_line "2) Indeksi yeniden olustur"
-    print_line "3) Cikis"
+    print_line "1) Show index"
+    print_line "2) Update index"
+    print_line "3) Exit"
     print_line ""
-    printf 'Secim: '
+    printf 'Choice: '
     read -r choice
 
     case "$choice" in
       1) show_index; pause ;;
       2) update_index; pause ;;
-      3) print_line "Cikis."; exit 0 ;;
-      *) print_line "Gecersiz secim: $choice"; pause ;;
+      3) print_line "Exit."; exit 0 ;;
+      *) print_line "Invalid choice: $choice"; pause ;;
     esac
   done
 }
