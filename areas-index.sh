@@ -3,6 +3,7 @@ set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 INDEX_FILE="$ROOT_DIR/areas-index.md"
+INDEX_REL="areas-index.md"
 
 cd "$ROOT_DIR"
 
@@ -26,13 +27,15 @@ markdown_anchor() {
 }
 
 generate_index() {
+  local tmp_file
+  tmp_file="$(mktemp)"
+
   {
     print_line "# Areas Ana Klasor Indeksi"
     print_line ""
     print_line "Bu dosya, bulundugu dizindeki ana klasor adlarini listeler."
     print_line ""
     print_line "- Dizin: \`$ROOT_DIR\`"
-    print_line "- Olusturma zamani: \`$(date '+%Y-%m-%d %H:%M:%S %Z')\`"
     print_line ""
 
     mapfile -t folders < <(find "$ROOT_DIR" -maxdepth 1 -type d ! -path "$ROOT_DIR" ! -name '.git' | sort)
@@ -64,9 +67,38 @@ generate_index() {
         print_line ""
       done
     fi
-  } > "$INDEX_FILE"
+  } > "$tmp_file"
 
-  print_line "Indeks olusturuldu: $INDEX_FILE"
+  if [[ -f "$INDEX_FILE" ]] && cmp -s "$tmp_file" "$INDEX_FILE"; then
+    rm -f "$tmp_file"
+    print_line "Indeks zaten guncel: $INDEX_FILE"
+    return 1
+  fi
+
+  mv "$tmp_file" "$INDEX_FILE"
+
+  print_line "Indeks guncellendi: $INDEX_FILE"
+  return 0
+}
+
+commit_index_if_changed() {
+  git -c safe.directory="$ROOT_DIR" add "$INDEX_REL"
+
+  if git -c safe.directory="$ROOT_DIR" diff --cached --quiet -- "$INDEX_REL"; then
+    print_line "Commit olusturulmadi: indeks degismedi."
+    return 0
+  fi
+
+  git -c safe.directory="$ROOT_DIR" commit -m "Update areas folder index" -- "$INDEX_REL"
+  print_line "Commit olusturuldu: Update areas folder index"
+}
+
+update_index() {
+  if generate_index; then
+    commit_index_if_changed
+  else
+    print_line "Commit olusturulmadi: degisiklik yok."
+  fi
 }
 
 show_index() {
@@ -95,7 +127,7 @@ menu() {
 
     case "$choice" in
       1) show_index; pause ;;
-      2) generate_index; pause ;;
+      2) update_index; pause ;;
       3) print_line "Cikis."; exit 0 ;;
       *) print_line "Gecersiz secim: $choice"; pause ;;
     esac
