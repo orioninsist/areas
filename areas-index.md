@@ -1,9 +1,9 @@
 # Areas Ana Klasor Indeksi
 
-Bu dosya, bulundugu dizindeki ana klasorleri listeler. Klasorde README.md varsa ilgili linki gosterir.
+Bu dosya, bulundugu dizindeki ana klasor adlarini listeler.
 
 - Dizin: `/mnt/local/areas`
-- Olusturma zamani: `2026-05-23 13:55:00 +03`
+- Olusturma zamani: `2026-05-23 14:00:04 +03`
 
 ## Icindekiler
 
@@ -28,61 +28,31 @@ Bu dosya, bulundugu dizindeki ana klasorleri listeler. Klasorde README.md varsa 
 
 ### KrizimGeldi
 
-- README: yok
-
 ### OliviasCompass
-
-- README: yok
 
 ### SelinsCompass
 
-- README: yok
-
 ### SophiasKompass
-
-- README: yok
 
 ### ai-music
 
-- README: yok
-
 ### artqr-fusion
-
-- README: [./artqr-fusion/README.md](./artqr-fusion/README.md)
 
 ### deutschHumorClips
 
-- README: yok
-
 ### donem-projesi
-
-- README: yok
 
 ### gnome
 
-- README: yok
-
 ### mira
-
-- README: yok
 
 ### orioninsist-cli
 
-- README: yok
-
 ### orioninsistWolf
-
-- README: yok
 
 ### printfy
 
-- README: yok
-
 ### qrcode
 
-- README: yok
-
 ### todolist
-
-- README: yok
 

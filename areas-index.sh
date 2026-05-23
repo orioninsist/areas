@@ -29,7 +29,7 @@ generate_index() {
   {
     print_line "# Areas Ana Klasor Indeksi"
     print_line ""
-    print_line "Bu dosya, bulundugu dizindeki ana klasorleri listeler. Klasorde README.md varsa ilgili linki gosterir."
+    print_line "Bu dosya, bulundugu dizindeki ana klasor adlarini listeler."
     print_line ""
     print_line "- Dizin: \`$ROOT_DIR\`"
     print_line "- Olusturma zamani: \`$(date '+%Y-%m-%d %H:%M:%S %Z')\`"
@@ -61,12 +61,6 @@ generate_index() {
       for folder in "${folders[@]}"; do
         name="$(basename "$folder")"
         print_line "### $name"
-        print_line ""
-        if [[ -f "$folder/README.md" ]]; then
-          print_line "- README: [./$name/README.md](./$name/README.md)"
-        else
-          print_line "- README: yok"
-        fi
         print_line ""
       done
     fi
