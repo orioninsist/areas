@@ -3,7 +3,7 @@
 Bu dosya, bulundugu dizindeki ana klasorleri ve temel iceriklerini listeler.
 
 - Dizin: `/mnt/local/areas`
-- Olusturma zamani: `2026-05-23 13:08:04 +03`
+- Olusturma zamani: `2026-05-23 13:39:50 +03`
 
 ## Icindekiler
 

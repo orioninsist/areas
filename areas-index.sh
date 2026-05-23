@@ -2,7 +2,7 @@
 set -euo pipefail
 
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-INDEX_FILE="$ROOT_DIR/areas-main-folder-structure.index.md"
+INDEX_FILE="$ROOT_DIR/areas-index.md"
 README_FILE="$ROOT_DIR/README.md"
 IGNORE_FILE="$ROOT_DIR/.gitignore"
 
