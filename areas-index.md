@@ -3,32 +3,48 @@
 Bu dosya, bulundugu dizindeki ana klasorleri listeler. Klasorde README.md varsa ilgili linki gosterir.
 
 - Dizin: `/mnt/local/areas`
-- Olusturma zamani: `2026-05-23 13:50:23 +03`
+- Olusturma zamani: `2026-05-23 13:55:00 +03`
 
 ## Icindekiler
 
 - [Ana Klasorler](#ana-klasorler)
+  - [KrizimGeldi](#krizimgeldi)
+  - [OliviasCompass](#oliviascompass)
+  - [SelinsCompass](#selinscompass)
+  - [SophiasKompass](#sophiaskompass)
   - [ai-music](#ai-music)
   - [artqr-fusion](#artqr-fusion)
   - [deutschHumorClips](#deutschhumorclips)
   - [donem-projesi](#donem-projesi)
   - [gnome](#gnome)
-  - [KrizimGeldi](#krizimgeldi)
   - [mira](#mira)
-  - [OliviasCompass](#oliviascompass)
   - [orioninsist-cli](#orioninsist-cli)
   - [orioninsistWolf](#orioninsistwolf)
   - [printfy](#printfy)
   - [qrcode](#qrcode)
-  - [SelinsCompass](#selinscompass)
-  - [SophiasKompass](#sophiaskompass)
   - [todolist](#todolist)
 
 ## Ana Klasorler
 
+### KrizimGeldi
+
+- README: yok
+
+### OliviasCompass
+
+- README: yok
+
+### SelinsCompass
+
+- README: yok
+
+### SophiasKompass
+
+- README: yok
+
 ### ai-music
 
-- README: [./ai-music/readme.md](./ai-music/readme.md)
+- README: yok
 
 ### artqr-fusion
 
@@ -46,15 +62,7 @@ Bu dosya, bulundugu dizindeki ana klasorleri listeler. Klasorde README.md varsa 
 
 - README: yok
 
-### KrizimGeldi
-
-- README: yok
-
 ### mira
-
-- README: yok
-
-### OliviasCompass
 
 - README: yok
 
@@ -71,14 +79,6 @@ Bu dosya, bulundugu dizindeki ana klasorleri listeler. Klasorde README.md varsa 
 - README: yok
 
 ### qrcode
-
-- README: yok
-
-### SelinsCompass
-
-- README: yok
-
-### SophiasKompass
 
 - README: yok
 

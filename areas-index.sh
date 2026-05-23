@@ -64,8 +64,6 @@ generate_index() {
         print_line ""
         if [[ -f "$folder/README.md" ]]; then
           print_line "- README: [./$name/README.md](./$name/README.md)"
-        elif [[ -f "$folder/readme.md" ]]; then
-          print_line "- README: [./$name/readme.md](./$name/readme.md)"
         else
           print_line "- README: yok"
         fi

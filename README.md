@@ -14,8 +14,8 @@ Her ana klasor icin:
 
 - klasor adini baslik olarak yazar;
 - `README.md` varsa ona link verir;
-- `readme.md` varsa ona link verir;
-- ikisi de yoksa `README: yok` yazar.
+- `readme.md` gibi farkli harf kullanimlarini eslesme kabul etmez;
+- `README.md` yoksa `README: yok` yazar.
 
 ### Ne Yapmaz?
 
@@ -26,6 +26,21 @@ Her ana klasor icin:
 - `.gitignore` olusturmaz veya guncellemez.
 - Klasor agaci gostermez.
 - Mevcut klasorleri silmez, tasimaz veya yeniden adlandirmaz.
+
+### Git Ignore Kurali
+
+Bu repoda genel kural olarak ana dizindeki proje klasorleri Git disinda tutulur. Linklerin calisabilmesi icin yalnizca buyuk harfle yazilmis `README.md` dosyalari Git'e dahil edilir.
+
+```gitignore
+*
+!*/
+!areas-index.sh
+!areas-index.md
+!README.md
+!**/README.md
+```
+
+Bu kural `readme.md`, `Readme.md` veya baska harf bicimlerini dahil etmez.
 
 ### Dosyalar
 
@@ -79,8 +94,8 @@ For each top-level folder, it:
 
 - writes the folder name as a heading;
 - links to `README.md` when it exists;
-- links to `readme.md` when that exists instead;
-- writes `README: yok` when no README file is found.
+- treats other casing such as `readme.md` as no match;
+- writes `README: yok` when `README.md` is not found.
 
 ### What It Does Not Do
 
@@ -91,6 +106,21 @@ For each top-level folder, it:
 - It does not create or update `.gitignore`.
 - It does not print a folder tree.
 - It does not delete, move, or rename existing folders.
+
+### Git Ignore Rule
+
+The repository keeps project folders ignored by default. Only files named exactly `README.md` are allowed back into Git so the index links can be tracked and opened reliably.
+
+```gitignore
+*
+!*/
+!areas-index.sh
+!areas-index.md
+!README.md
+!**/README.md
+```
+
+This rule does not include `readme.md`, `Readme.md`, or any other casing.
 
 ### Files
 
